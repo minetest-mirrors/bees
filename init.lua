@@ -412,7 +412,10 @@ minetest.register_node("bees:hive_wild", {
 		if meta:get_int("agressive") == 1
 		and inv:contains_item("queen", "bees:queen") then
 
-			clicker:set_hp(clicker:get_hp() - 4)
+			-- damage inside timer to stop death duplication glitch
+			minetest.after(0.1, function()
+				clicker:set_hp(clicker:get_hp() - 4)
+			end, clicker)
 		else
 			meta:set_int("agressive", 1)
 		end
@@ -509,7 +512,10 @@ minetest.register_node("bees:hive_artificial", {
 		if meta:get_int("agressive") == 1
 		and inv:contains_item("queen", "bees:queen") then
 
-			clicker:set_hp(clicker:get_hp() - 4)
+			-- damage inside timer to stop death duplication glitch
+			minetest.after(0.1, function()
+				clicker:set_hp(clicker:get_hp() - 4)
+			end, clicker)
 		else
 			meta:set_int("agressive", 1)
 		end
