@@ -233,7 +233,7 @@ minetest.register_node("bees:extractor", {
 		end
 
 		return stack:get_count()
-	end,
+	end
 })
 
 
@@ -254,13 +254,13 @@ minetest.register_node("bees:bees", {
 	selection_box = {
 		type = "fixed",
 		fixed = {
-			{-0.3, -0.4, -0.3, 0.3, 0.4, 0.3},
+			{-0.3, -0.4, -0.3, 0.3, 0.4, 0.3}
 		}
 	},
 
 	on_punch = function(_, _, puncher)
 		puncher:set_hp(puncher:get_hp() - 2)
-	end,
+	end
 })
 
 
@@ -287,7 +287,7 @@ minetest.register_node("bees:hive_wild", {
 			{-0.25,   -0.5,   -0.25,   0.25,   0.375, 0.25},
 			{-0.3125, -0.375, -0.3125, 0.3125, 0.25,  0.3125},
 			{-0.375,  -0.25,  -0.375,  0.375,  0.125, 0.375},
-			{-0.0625, -0.5,   -0.0625, 0.0625, 0.5,   0.0625},
+			{-0.0625, -0.5,   -0.0625, 0.0625, 0.5,   0.0625}
 		}
 	},
 
@@ -645,6 +645,18 @@ minetest.register_node("bees:hive_artificial", {
 
 		return 0
 	end,
+
+	can_dig = function(pos)
+
+		local meta = minetest.get_meta(pos)
+		local inv = meta:get_inventory()
+
+		if inv:is_empty("queen") and inv:is_empty("frames") then
+			return true
+		else
+			return false
+		end
+	end
 })
 
 
@@ -690,7 +702,7 @@ minetest.register_abm({
 				minetest.remove_node(pos)
 			end
 		end
-	end,
+	end
 })
 
 
@@ -723,7 +735,7 @@ minetest.register_abm({
 		if minetest.find_node_near(p, 5, "group:flora") then
 			minetest.add_node(p, {name = "bees:hive_wild"})
 		end
-	end,
+	end
 })
 
 
@@ -745,7 +757,7 @@ minetest.register_abm({
 		if minetest.get_node(p).name == "air" then
 			minetest.add_node(p, {name="bees:bees"})
 		end
-	end,
+	end
 })
 
 
@@ -757,7 +769,7 @@ minetest.register_abm({
 
 	action = function(pos)
 		minetest.remove_node(pos)
-	end,
+	end
 })
 
 
@@ -768,13 +780,13 @@ minetest.register_abm({
 minetest.register_craftitem("bees:frame_empty", {
 	description = S("Empty hive frame"),
 	inventory_image = "bees_frame_empty.png",
-	stack_max = 24,
+	stack_max = 24
 })
 
 minetest.register_craftitem("bees:frame_full", {
 	description = S("Filled hive frame"),
 	inventory_image = "bees_frame_full.png",
-	stack_max = 12,
+	stack_max = 12
 })
 
 minetest.register_craftitem("bees:bottle_honey", {
@@ -782,26 +794,26 @@ minetest.register_craftitem("bees:bottle_honey", {
 	inventory_image = "bees_bottle_honey.png",
 	stack_max = 12,
 	on_use = minetest.item_eat(3, "vessels:glass_bottle"),
-	groups = {vessel = 1},
+	groups = {vessel = 1}
 })
 
 minetest.register_craftitem("bees:wax", {
 	description = S("Bees wax"),
 	inventory_image = "bees_wax.png",
-	stack_max = 48,
+	stack_max = 48
 })
 
 minetest.register_craftitem("bees:honey_comb", {
 	description = S("honey comb"),
 	inventory_image = "bees_comb.png",
 	on_use = minetest.item_eat(2),
-	stack_max = 8,
+	stack_max = 8
 })
 
 minetest.register_craftitem("bees:queen", {
 	description = S("Queen Bee"),
 	inventory_image = "bees_particle_bee.png",
-	stack_max = 1,
+	stack_max = 1
 })
 
 
@@ -814,7 +826,7 @@ minetest.register_craft({
 	recipe = {
 		{"", "default:steel_ingot", ""},
 		{"default:steel_ingot", "default:stick", "default:steel_ingot"},
-		{"default:mese_crystal", "default:steel_ingot", "default:mese_crystal"},
+		{"default:mese_crystal", "default:steel_ingot", "default:mese_crystal"}
 	}
 })
 
@@ -823,7 +835,7 @@ minetest.register_craft({
 	recipe = {
 		{"default:steel_ingot", "wool:red", ""},
 		{"", "default:torch", ""},
-		{"", "default:steel_ingot",""},
+		{"", "default:steel_ingot",""}
 	}
 })
 
@@ -832,7 +844,7 @@ minetest.register_craft({
 	recipe = {
 		{"group:wood", "group:wood", "group:wood"},
 		{"group:wood", "default:stick", "group:wood"},
-		{"group:wood", "default:stick", "group:wood"},
+		{"group:wood", "default:stick", "group:wood"}
 	}
 })
 
@@ -841,7 +853,7 @@ minetest.register_craft({
 	recipe = {
 		{"", "", "default:steel_ingot"},
 		{"", "default:stick", ""},
-		{"", "", ""},
+		{"", "", ""}
 	}
 })
 
@@ -850,7 +862,7 @@ minetest.register_craft({
 	recipe = {
 		{"group:wood", "group:wood", "group:wood"},
 		{"default:stick", "default:stick", "default:stick"},
-		{"default:stick", "default:stick", "default:stick"},
+		{"default:stick", "default:stick", "default:stick"}
 	}
 })
 
@@ -860,7 +872,7 @@ if minetest.get_modpath("bushes_classic") then
 		type = "cooking",
 		cooktime = 5,
 		recipe = "bees:bottle_honey",
-		output = "bushes:sugar",
+		output = "bushes:sugar"
 	})
 end
 
@@ -875,7 +887,7 @@ minetest.register_tool("bees:smoker", {
 	tool_capabilities = {
 		full_punch_interval = 3.0,
 		max_drop_level = 0,
-		damage_groups = {fleshy = 2},
+		damage_groups = {fleshy = 2}
 	},
 
 	on_use = function(itemstack, _, pointed_thing)
@@ -899,7 +911,7 @@ minetest.register_tool("bees:smoker", {
 				expirationtime = 2 + random(2.5),
 				size = random(3),
 				collisiondetection = false,
-				texture = "bees_smoke_particle.png",
+				texture = "bees_smoke_particle.png"
 			})
 		end
 
@@ -910,7 +922,7 @@ minetest.register_tool("bees:smoker", {
 		meta:set_int("agressive", 0)
 
 		return itemstack
-	end,
+	end
 })
 
 minetest.register_tool("bees:grafting_tool", {
@@ -919,7 +931,7 @@ minetest.register_tool("bees:grafting_tool", {
 	tool_capabilities = {
 		full_punch_interval = 3.0,
 		max_drop_level=0,
-		damage_groups = {fleshy = 2},
+		damage_groups = {fleshy = 2}
 	},
 })
 
@@ -1210,7 +1222,7 @@ if minetest.get_modpath("pipeworks") then
 			end
 
 			return 0
-		end,
+		end
 	})
 
 	minetest.register_craft({
@@ -1218,7 +1230,7 @@ if minetest.get_modpath("pipeworks") then
 		recipe = {
 			{"default:steel_ingot","homedecor:plastic_sheeting","default:steel_ingot"},
 			{"pipeworks:tube_1","bees:hive_artificial","pipeworks:tube_1"},
-			{"default:steel_ingot","homedecor:plastic_sheeting","default:steel_ingot"},
+			{"default:steel_ingot","homedecor:plastic_sheeting","default:steel_ingot"}
 		}
 	})
 end
@@ -1259,9 +1271,9 @@ if minetest.get_modpath("lucky_block") then
 		{"dro", {"bees:frame_full"}, 2},
 		{"dro", {"bees:bottle_honey"}, 3},
 		{"dro", {"bees:smoker"}, 1},
-		{"nod", "bees:hive_artificial"},
+		{"nod", "bees:hive_artificial"}
 	})
 end
 
 
-print(S("[MOD] Bees Loaded!"))
+print("[MOD] Bees Loaded")
