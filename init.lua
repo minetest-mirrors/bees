@@ -258,6 +258,20 @@ minetest.register_node("bees:bees", {
 		}
 	},
 
+	on_timer = function(pos)
+		minetest.remove_node(pos)
+	end,
+
+	on_construct = function(pos)
+
+		local timer = minetest.get_node_timer(pos)
+
+		timer:start(25)
+
+		minetest.sound_play("bees", {
+			pos = pos, gain = 1.0, max_hear_distance = 10}, true)
+	end,
+
 	on_punch = function(_, _, puncher)
 		puncher:set_hp(puncher:get_hp() - 2)
 	end
@@ -365,6 +379,9 @@ minetest.register_node("bees:hive_wild", {
 
 			puncher:set_hp(puncher:get_hp() - 4)
 		end
+
+		minetest.sound_play("bees", {
+			pos = pos, gain = 1.0, max_hear_distance = 10}, true)
 	end,
 
 	on_metadata_inventory_take = function(pos, listname, _, _, taker)
@@ -412,6 +429,9 @@ minetest.register_node("bees:hive_wild", {
 
 		if meta:get_int("agressive") == 1
 		and inv:contains_item("queen", "bees:queen") then
+
+			minetest.sound_play("bees", {
+				pos = pos, gain = 1.0, max_hear_distance = 10}, true)
 
 			-- damage inside timer to stop death duplication glitch
 			minetest.after(0.1, function()
@@ -690,6 +710,9 @@ minetest.register_abm({
 			texture = "bees_particle_bee.png",
 		})
 
+		minetest.sound_play("bees", {
+			pos = pos, gain = 0.6, max_hear_distance = 5}, true)
+
 		-- floating hive check and removal
 		if node.name == "bees:hive_wild" then
 
@@ -742,7 +765,7 @@ minetest.register_abm({
 -- spawning bees around bee hive
 minetest.register_abm({
 	nodenames = {"bees:hive_wild", "bees:hive_artificial", "bees:hive_industrial"},
-	neighbors = {"group:flowers", "group:leaves"},
+	neighbors = {"group:flower", "group:leaves"},
 	interval = 30,
 	chance = 4,
 
@@ -757,18 +780,6 @@ minetest.register_abm({
 		if minetest.get_node(p).name == "air" then
 			minetest.add_node(p, {name="bees:bees"})
 		end
-	end
-})
-
-
--- remove bees
-minetest.register_abm({
-	nodenames = {"bees:bees"},
-	interval = 30,
-	chance = 5,
-
-	action = function(pos)
-		minetest.remove_node(pos)
 	end
 })
 
@@ -948,12 +959,19 @@ minetest.register_alias("bees:honey_extractor", "bees:extractor")
 minetest.register_alias("bees:honey_bottle", "bees:bottle_honey")
 
 minetest.register_lbm({
-	nodenames = {"bees:hive", "bees:hive_artificial_inhabited"},
+	nodenames = {"bees:hive", "bees:hive_artificial_inhabited", "bees:bees"},
 	name = "bees:replace_old_hives",
 	label = "Replace old hives",
 	run_at_every_load = true,
 
 	action = function(pos, node)
+
+		if node.name == "bees:bees" then
+
+			local timer = minetest.get_node_timer(pos)
+
+			timer:start(20)
+		end
 
 		if node.name == "bees:hive" then
 
@@ -1257,7 +1275,7 @@ if minetest.get_modpath("lucky_block") then
 
 				player_pos.y = player_pos.y + 1
 
-				minetest.swap_node(player_pos, {name = "bees:bees"})
+				minetest.set_node(player_pos, {name = "bees:bees"})
 			end
 		end
 	end
