@@ -41,7 +41,9 @@ local hive_artificial = function(pos)
 	local spos = pos.x..","..pos.y..","..pos.z
 	local formspec = "size[8,9]"
 		.. "list[nodemeta:"..spos..";queen;3.5,1;1,1;]"
+		.. "tooltip[3.5,1;1,1;Queen]"
 		.. "list[nodemeta:"..spos..";frames;0,3;8,1;]"
+		.. "tooltip[0,3;8,1;Frames]"
 		.. "list[current_player;main;0,5;8,4;]"
 
 	return formspec
@@ -96,14 +98,33 @@ minetest.register_node("bees:extractor", {
 		meta:set_string("formspec", "size[8,9]"
 			-- input
 			.. "list[nodemeta:"..pos..";frames_filled;2,1;1,1;]"
+			.. "tooltip[2,1;1,1;Filled Frames]"
 			.. "list[nodemeta:"..pos..";bottles_empty;2,3;1,1;]"
+			.. "tooltip[2,3;1,1;Empty Bottles]"
 			-- output
 			.. "list[nodemeta:"..pos..";frames_emptied;5,0.5;1,1;]"
+			.. "tooltip[5,0.5;1,1;Empty Frames]"
 			.. "list[nodemeta:"..pos..";wax;5,2;1,1;]"
+			.. "tooltip[5,2;1,1;Wax]"
 			.. "list[nodemeta:"..pos..";bottles_full;5,3.5;1,1;]"
+			.. "tooltip[5,3.5;1,1;Filled Bottles]"
 			-- player inventory
 			.. "list[current_player;main;0,5;8,4;]"
 		)
+	end,
+
+	can_dig = function(pos)
+
+		local meta = minetest.get_meta(pos)
+		local inv = meta:get_inventory()
+
+		if inv:is_empty("frames_filled") and inv:is_empty("frames_emptied")
+		and inv:is_empty("bottles_empty") and inv:is_empty("bottles_full")
+		and inv:is_empty("wax") then
+			return true
+		else
+			return false
+		end
 	end,
 
 	on_timer = function(pos)
@@ -1091,6 +1112,18 @@ if minetest.get_modpath("pipeworks") then
 			inv:set_size("frames", 8)
 
 			meta:set_string("infotext", S("Requires Queen bee to function"))
+		end,
+
+		can_dig = function(pos)
+
+			local meta = minetest.get_meta(pos)
+			local inv = meta:get_inventory()
+
+			if inv:is_empty("queen") and inv:is_empty("frames") then
+				return true
+			else
+				return false
+			end
 		end,
 
 		on_rightclick = function(pos, _, clicker)
