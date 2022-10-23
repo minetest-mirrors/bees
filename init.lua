@@ -706,6 +706,7 @@ minetest.register_node("bees:hive_artificial", {
 --
 
 minetest.register_abm({
+	label = "spawn bee particles",
 	nodenames = {"bees:hive_artificial", "bees:hive_wild", "bees:hive_industrial"},
 	interval = 10,
 	chance = 4,
@@ -752,6 +753,7 @@ minetest.register_abm({
 
 -- spawn ABM. This should be changed to a more realistic type of spawning
 minetest.register_abm({
+	label = "spawn bee hives",
 	nodenames = {"group:leaves"},
 	neighbors = {"air"},
 	interval = 300,
@@ -785,6 +787,7 @@ minetest.register_abm({
 
 -- spawning bees around bee hive
 minetest.register_abm({
+	label = "spawn bees around bee hives",
 	nodenames = {"bees:hive_wild", "bees:hive_artificial", "bees:hive_industrial"},
 	neighbors = {"group:flower", "group:leaves"},
 	interval = 30,
