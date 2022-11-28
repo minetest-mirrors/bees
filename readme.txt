@@ -10,7 +10,7 @@ FEATURES
 - Intllib support (template added)
 - Wild hives are removed if found floating in mid air
 - Change compatibility abm to lbm
-- Change from WTFPL to MIT license
+- Change from WTFPL to MIT license after rewrite
 - Make wild hive abm less intensive (thanks VanessaE)
 - Added 9x Lucky Blocks
 - Smokers have 200 uses before breaking
@@ -62,8 +62,8 @@ https://forum.minetest.net/viewtopic.php?pid=102905
 
 LICENSE
 -------
-- codes is WTFPL
-- textures are CC BY-SA
+- codes is MIT
+- textures by Bas80 and Neuromancer are CC BY-SA
 
 CRAFTS
 ------
