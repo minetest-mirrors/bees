@@ -440,6 +440,8 @@ minetest.register_node("bees:hive_wild", {
 
 	on_rightclick = function(pos, _, clicker, itemstack)
 
+		if not itemstack then return end
+
 		minetest.show_formspec(clicker:get_player_name(),
 			"bees:hive_artificial",
 			hive_wild(pos, (itemstack:get_name() == "bees:grafting_tool"))
