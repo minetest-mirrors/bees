@@ -25,7 +25,7 @@ local hive_wild = function(pos, grafting)
 
 	local spos = pos.x .. "," .. pos.y .. "," ..pos.z
 	local formspec = "size[8,9]"
-		.. "list[nodemeta:".. spos .. ";combs;1.5,3;5,1;]"
+		.. "list[nodemeta:" .. spos .. ";combs;1.5,3;5,1;]"
 		.. "list[current_player;main;0,5;8,4;]"
 
 	if grafting then
@@ -38,11 +38,11 @@ end
 
 local hive_artificial = function(pos)
 
-	local spos = pos.x..","..pos.y..","..pos.z
+	local spos = pos.x .. "," .. pos.y .. "," .. pos.z
 	local formspec = "size[8,9]"
-		.. "list[nodemeta:"..spos..";queen;3.5,1;1,1;]"
+		.. "list[nodemeta:" .. spos .. ";queen;3.5,1;1,1;]"
 		.. "tooltip[3.5,1;1,1;Queen]"
-		.. "list[nodemeta:"..spos..";frames;0,3;8,1;]"
+		.. "list[nodemeta:" .. spos .. ";frames;0,3;8,1;]"
 		.. "tooltip[0,3;8,1;Frames]"
 		.. "list[current_player;main;0,5;8,4;]"
 
@@ -97,16 +97,16 @@ minetest.register_node("bees:extractor", {
 
 		meta:set_string("formspec", "size[8,9]"
 			-- input
-			.. "list[nodemeta:"..pos..";frames_filled;2,1;1,1;]"
+			.. "list[nodemeta:" .. pos .. ";frames_filled;2,1;1,1;]"
 			.. "tooltip[2,1;1,1;Filled Frames]"
-			.. "list[nodemeta:"..pos..";bottles_empty;2,3;1,1;]"
+			.. "list[nodemeta:" .. pos .. ";bottles_empty;2,3;1,1;]"
 			.. "tooltip[2,3;1,1;Empty Bottles]"
 			-- output
-			.. "list[nodemeta:"..pos..";frames_emptied;5,0.5;1,1;]"
+			.. "list[nodemeta:" .. pos .. ";frames_emptied;5,0.5;1,1;]"
 			.. "tooltip[5,0.5;1,1;Empty Frames]"
-			.. "list[nodemeta:"..pos..";wax;5,2;1,1;]"
+			.. "list[nodemeta:" .. pos .. ";wax;5,2;1,1;]"
 			.. "tooltip[5,2;1,1;Wax]"
-			.. "list[nodemeta:"..pos..";bottles_full;5,3.5;1,1;]"
+			.. "list[nodemeta:" .. pos .. ";bottles_full;5,3.5;1,1;]"
 			.. "tooltip[5,3.5;1,1;Filled Bottles]"
 			-- player inventory
 			.. "list[current_player;main;0,5;8,4;]"
@@ -315,7 +315,6 @@ minetest.register_node("bees:hive_wild", {
 		}
 	},
 	groups = {choppy = 2, oddly_breakable_by_hand = 2, flammable = 3},
-			--, attached_node = 1},
 	node_box = { -- VanessaE's wild hive nodebox contribution
 		type = "fixed",
 		fixed = {
@@ -954,9 +953,14 @@ minetest.register_tool("bees:smoker", {
 
 		itemstack:add_wear(65535 / 200)
 
-		local meta = minetest.get_meta(pos)
+		local nodename = minetest.get_node(pos).name or ""
 
-		meta:set_int("agressive", 0)
+		if nodename:find("bees:hive_") then
+
+			local meta = minetest.get_meta(pos)
+
+			meta:set_int("agressive", 0)
+		end
 
 		return itemstack
 	end
@@ -967,9 +971,9 @@ minetest.register_tool("bees:grafting_tool", {
 	inventory_image = "bees_grafting_tool.png",
 	tool_capabilities = {
 		full_punch_interval = 3.0,
-		max_drop_level=0,
+		max_drop_level = 0,
 		damage_groups = {fleshy = 2}
-	},
+	}
 })
 
 
@@ -1284,9 +1288,9 @@ if minetest.get_modpath("pipeworks") then
 	minetest.register_craft({
 		output = "bees:hive_industrial",
 		recipe = {
-			{"default:steel_ingot","homedecor:plastic_sheeting","default:steel_ingot"},
-			{"pipeworks:tube_1","bees:hive_artificial","pipeworks:tube_1"},
-			{"default:steel_ingot","homedecor:plastic_sheeting","default:steel_ingot"}
+			{"default:steel_ingot", "homedecor:plastic_sheeting", "default:steel_ingot"},
+			{"pipeworks:tube_1", "bees:hive_artificial", "pipeworks:tube_1"},
+			{"default:steel_ingot", "homedecor:plastic_sheeting", "default:steel_ingot"}
 		}
 	})
 end
