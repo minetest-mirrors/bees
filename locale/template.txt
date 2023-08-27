@@ -1,21 +1,21 @@
-# Template
-
-Bees=
+# textdomain: bees
 Honey Extractor=
+Bees=
 Wild Bee Hive=
-Artificial Bee Hive=
-Industrial Bee Hive=
 Colony died, not enough flowers in area!=
+Artificial Bee Hive=
 Requires Queen bee to function=
-Progress=
+progress:=
 Does not have empty frame(s)=
-Queen inserted, now for empty frames=
+Queen inserted, now for the empty frames=
 Bees are aclimating=
-Empty hive frame=
-Filled hive frame=
+Empty Hive Frame=
+Filled Hive Frame=
 Honey Bottle=
-Bees wax=
-Honey comb=
+Bees Wax=
+Honey Comb=
 Queen Bee=
 Smoker=
-Grafting tool=
+Grafting Tool=
+Industrial Bee Hive=
+Bees! Bees for all!=

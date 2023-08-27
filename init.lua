@@ -3,14 +3,8 @@
 -- License: MIT
 
 
--- Intllib support
-local S
-if minetest.get_translator then
-	S = minetest.get_translator("bees")
-else
-	S = function(s) return s end
-end
-
+-- Translation support
+local S = minetest.get_translator("bees")
 
 --
 -- FUNCTIONS
@@ -812,19 +806,19 @@ minetest.register_abm({
 --
 
 minetest.register_craftitem("bees:frame_empty", {
-	description = S("Empty hive frame"),
+	description = S("Empty Hive Frame"),
 	inventory_image = "bees_frame_empty.png",
 	stack_max = 24
 })
 
 minetest.register_craftitem("bees:frame_full", {
-	description = S("Filled hive frame"),
+	description = S("Filled Hive Frame"),
 	inventory_image = "bees_frame_full.png",
 	stack_max = 12
 })
 
 minetest.register_craftitem("bees:bottle_honey", {
-	description = S("Honey bottle"),
+	description = S("Honey Bottle"),
 	inventory_image = "bees_bottle_honey.png",
 	stack_max = 12,
 	on_use = minetest.item_eat(3, "vessels:glass_bottle"),
@@ -832,13 +826,13 @@ minetest.register_craftitem("bees:bottle_honey", {
 })
 
 minetest.register_craftitem("bees:wax", {
-	description = S("Bees wax"),
+	description = S("Bees Wax"),
 	inventory_image = "bees_wax.png",
 	stack_max = 48
 })
 
 minetest.register_craftitem("bees:honey_comb", {
-	description = S("honey comb"),
+	description = S("Honey Comb"),
 	inventory_image = "bees_comb.png",
 	on_use = minetest.item_eat(2),
 	stack_max = 8
@@ -916,7 +910,7 @@ end
 --
 
 minetest.register_tool("bees:smoker", {
-	description = S("smoker"),
+	description = S("Smoker"),
 	inventory_image = "bees_smoker.png",
 	tool_capabilities = {
 		full_punch_interval = 3.0,
@@ -965,7 +959,7 @@ minetest.register_tool("bees:smoker", {
 })
 
 minetest.register_tool("bees:grafting_tool", {
-	description = S("Grafting tool"),
+	description = S("Grafting Tool"),
 	inventory_image = "bees_grafting_tool.png",
 	tool_capabilities = {
 		full_punch_interval = 3.0,
