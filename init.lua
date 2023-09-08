@@ -59,6 +59,16 @@ local polinate_flower = function(pos, flower)
 end
 
 
+local sting_player = function(player, damage)
+
+	minetest.after(0.1, function()
+		if player and player:get_pos() then
+			player:set_hp(player:get_hp() - damage)
+		end
+	end)
+end
+
+
 --
 -- NODES
 --
@@ -286,7 +296,7 @@ minetest.register_node("bees:bees", {
 	end,
 
 	on_punch = function(_, _, puncher)
-		puncher:set_hp(puncher:get_hp() - 2)
+		sting_player(puncher, 2)
 	end
 })
 
@@ -388,8 +398,7 @@ minetest.register_node("bees:hive_wild", {
 		local inv = meta:get_inventory()
 
 		if inv:contains_item("queen", "bees:queen") then
-
-			puncher:set_hp(puncher:get_hp() - 4)
+			sting_player(puncher, 4)
 		end
 
 		minetest.sound_play("bees", {
@@ -406,7 +415,7 @@ minetest.register_node("bees:hive_wild", {
 
 			timer:start(10)
 
-			taker:set_hp(taker:get_hp() - 2)
+			sting_player(taker, 2)
 		end
 	end,
 
@@ -447,10 +456,7 @@ minetest.register_node("bees:hive_wild", {
 			minetest.sound_play("bees", {
 				pos = pos, gain = 1.0, max_hear_distance = 10}, true)
 
-			-- damage inside timer to stop death duplication glitch
-			minetest.after(0.1, function()
-				clicker:set_hp(clicker:get_hp() - 4)
-			end, clicker)
+			sting_player(clicker, 4)
 		else
 			meta:set_int("agressive", 1)
 		end
@@ -546,11 +552,7 @@ minetest.register_node("bees:hive_artificial", {
 
 		if meta:get_int("agressive") == 1
 		and inv:contains_item("queen", "bees:queen") then
-
-			-- damage inside timer to stop death duplication glitch
-			minetest.after(0.1, function()
-				clicker:set_hp(clicker:get_hp() - 4)
-			end, clicker)
+			sting_player(clicker, 4)
 		else
 			meta:set_int("agressive", 1)
 		end
@@ -1145,8 +1147,7 @@ if minetest.get_modpath("pipeworks") then
 
 			if meta:get_int("agressive") == 1
 			and inv:contains_item("queen", "bees:queen") then
-
-				clicker:set_hp(clicker:get_hp() - 4)
+				stiny_player(clicker, 4)
 			else
 				meta:set_int("agressive", 1)
 			end
