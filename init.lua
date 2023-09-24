@@ -1147,7 +1147,7 @@ if minetest.get_modpath("pipeworks") then
 
 			if meta:get_int("agressive") == 1
 			and inv:contains_item("queen", "bees:queen") then
-				stiny_player(clicker, 4)
+				sting_player(clicker, 4)
 			else
 				meta:set_int("agressive", 1)
 			end
