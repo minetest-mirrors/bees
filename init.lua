@@ -1,5 +1,5 @@
 -- Mod:     BEES
--- Author:  Bas080 (Tweaked by TenPlus1)
+-- Author:  Bas080 (Updated by TenPlus1)
 -- License: MIT
 
 
@@ -17,11 +17,14 @@ local hive_wild = function(pos, grafting)
 
 	local spos = pos.x .. "," .. pos.y .. "," ..pos.z
 	local formspec = "size[8,9]"
-		.. "list[nodemeta:" .. spos .. ";combs;1.5,3;5,1;]"
-		.. "list[current_player;main;0,5;8,4;]"
+		.. "label[0,0;" .. S("Wild Bee Hive") .. "]"
+		.. "list[nodemeta:" .. spos .. ";combs;1.5,3;5,1;]" -- Honey Comb
+		.. "list[current_player;main;0,5;8,4;]" -- Player Inventory
 
 	if grafting then
-		formspec = formspec .."list[nodemeta:".. spos .. ";queen;3.5,1;1,1;]"
+		formspec = formspec .."list[nodemeta:".. spos .. ";queen;3.5,1;1,1;]" -- Queen
+	else
+		formspec = formspec .. "item_image[3.5,1;1,1;bees:queen]"
 	end
 
 	return formspec
@@ -32,11 +35,13 @@ local hive_artificial = function(pos)
 
 	local spos = pos.x .. "," .. pos.y .. "," .. pos.z
 	local formspec = "size[8,9]"
+		.. "label[0,0;" .. S("Artificial Bee Hive") .. "]"
+		.. "item_image[2.5,1;1,1;bees:queen]" -- Queen
 		.. "list[nodemeta:" .. spos .. ";queen;3.5,1;1,1;]"
-		.. "tooltip[3.5,1;1,1;Queen]"
-		.. "list[nodemeta:" .. spos .. ";frames;0,3;8,1;]"
-		.. "tooltip[0,3;8,1;Frames]"
-		.. "list[current_player;main;0,5;8,4;]"
+		.. "tooltip[3.5,1;1,1;" .. S("Queen Bee").."]"
+		.. "list[nodemeta:" .. spos .. ";frames;0,3;8,1;]" -- Frames
+		.. "tooltip[0,3;8,1;" .. S("Empty Hive Frame") .. "]"
+		.. "list[current_player;main;0,5;8,4;]" -- Player Inventory
 
 	return formspec
 end
@@ -98,18 +103,22 @@ minetest.register_node("bees:extractor", {
 		inv:set_size("wax", 1)
 
 		meta:set_string("formspec", "size[8,9]"
+			.. "label[0,0;" .. S("Honey Extractor") .. "]"
 			-- input
+			.. "item_image[1,1;1,1;bees:frame_full]"
 			.. "list[nodemeta:" .. pos .. ";frames_filled;2,1;1,1;]"
-			.. "tooltip[2,1;1,1;Filled Frames]"
+			.. "tooltip[2,1;1,1;" .. S("Filled Hive Frame") .. "]"
+			.. "item_image[1,3;1,1;vessels:glass_bottle]"
 			.. "list[nodemeta:" .. pos .. ";bottles_empty;2,3;1,1;]"
 			.. "tooltip[2,3;1,1;Empty Bottles]"
 			-- output
+			.. "label[4,2;->]"
 			.. "list[nodemeta:" .. pos .. ";frames_emptied;5,0.5;1,1;]"
-			.. "tooltip[5,0.5;1,1;Empty Frames]"
+			.. "tooltip[5,0.5;1,1;" .. S("Empty Hive Frame") .. "]"
 			.. "list[nodemeta:" .. pos .. ";wax;5,2;1,1;]"
-			.. "tooltip[5,2;1,1;Wax]"
+			.. "tooltip[5,2;1,1;" .. S("Bees Wax") .. "]"
 			.. "list[nodemeta:" .. pos .. ";bottles_full;5,3.5;1,1;]"
-			.. "tooltip[5,3.5;1,1;Filled Bottles]"
+			.. "tooltip[5,3.5;1,1;" .. S("Honey Bottle") .. "]"
 			-- player inventory
 			.. "list[current_player;main;0,5;8,4;]"
 		)
