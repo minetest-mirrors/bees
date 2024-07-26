@@ -814,6 +814,28 @@ minetest.register_abm({
 	end
 })
 
+--
+-- Helper Function
+--
+
+local mod_tt_base = minetest.get_modpath("tt_base")
+local function add_eatable(item, hp)
+
+	local def = minetest.registered_items[item]
+
+	if def then
+
+		local grps = def.groups or {}
+
+		grps.eatable = hp ; grps.flammable = 2
+
+		if mod_tt_base == nil then
+			def.description = def.description .. " (♥" .. hp .. ")"
+		end
+
+		minetest.override_item(item, {description = def.description, groups = grps})
+	end
+end
 
 --
 -- ITEMS
@@ -832,12 +854,14 @@ minetest.register_craftitem("bees:frame_full", {
 })
 
 minetest.register_craftitem("bees:bottle_honey", {
-	description = S("Honey Bottle") .. " (♥3)",
+	description = S("Honey Bottle"),
 	inventory_image = "bees_bottle_honey.png",
 	stack_max = 12,
 	on_use = minetest.item_eat(3, "vessels:glass_bottle"),
-	groups = {vessel = 1, eatable = 3}
+	groups = {vessel = 1}
 })
+
+add_eatable("bees:bottle_honey", 3)
 
 minetest.register_craftitem("bees:wax", {
 	description = S("Bees Wax"),
@@ -846,12 +870,13 @@ minetest.register_craftitem("bees:wax", {
 })
 
 minetest.register_craftitem("bees:honey_comb", {
-	description = S("Honey Comb") .. " (♥2)",
+	description = S("Honey Comb"),
 	inventory_image = "bees_comb.png",
 	on_use = minetest.item_eat(2),
-	stack_max = 8,
-	groups = {eatable = 2}
+	stack_max = 8
 })
+
+add_eatable("bees:honey_comb", 2)
 
 minetest.register_craftitem("bees:queen", {
 	description = S("Queen Bee"),
