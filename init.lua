@@ -832,11 +832,11 @@ minetest.register_craftitem("bees:frame_full", {
 })
 
 minetest.register_craftitem("bees:bottle_honey", {
-	description = S("Honey Bottle"),
+	description = S("Honey Bottle") .. " (♥3)",
 	inventory_image = "bees_bottle_honey.png",
 	stack_max = 12,
 	on_use = minetest.item_eat(3, "vessels:glass_bottle"),
-	groups = {vessel = 1}
+	groups = {vessel = 1, eatable = 3}
 })
 
 minetest.register_craftitem("bees:wax", {
@@ -846,10 +846,11 @@ minetest.register_craftitem("bees:wax", {
 })
 
 minetest.register_craftitem("bees:honey_comb", {
-	description = S("Honey Comb"),
+	description = S("Honey Comb") .. " (♥2)",
 	inventory_image = "bees_comb.png",
 	on_use = minetest.item_eat(2),
-	stack_max = 8
+	stack_max = 8,
+	groups = {eatable = 2}
 })
 
 minetest.register_craftitem("bees:queen", {
