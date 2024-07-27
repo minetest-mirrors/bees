@@ -830,7 +830,7 @@ local function add_eatable(item, hp)
 		grps.eatable = hp ; grps.flammable = 2
 
 		if mod_tt_base == nil then
-			def.description = def.description .. " (♥" .. hp .. ")"
+			def.description = def.description .. " (+" .. hp .. " HP)"
 		end
 
 		minetest.override_item(item, {description = def.description, groups = grps})
