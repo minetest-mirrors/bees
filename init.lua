@@ -610,8 +610,8 @@ core.register_node("bees:hive_artificial", {
 						end
 					end
 				else
-					meta:set_string("infotext", S("progress:")
-						.. " " .. progress .. " + " .. #flowers .. " / 1000")
+					meta:set_string("infotext", S("progress: @1",
+							progress .. " + " .. #flowers .. " / 1000"))
 				end
 			else
 				meta:set_string("infotext", S("Does not have empty frame(s)"))
@@ -665,7 +665,7 @@ core.register_node("bees:hive_artificial", {
 
 				timer:start(30)
 
-				meta:set_string("infotext", S("Bees are aclimating"))
+				meta:set_string("infotext", S("Bees are acclimating"))
 			end
 		end
 	end,
@@ -1207,8 +1207,8 @@ if core.get_modpath("pipeworks") then
 							end
 						end
 					else
-						meta:set_string("infotext", S("progress:")
-							.. " " .. progress .. " + " .. #flowers .. " / 1000")
+						meta:set_string("infotext", S("progress: @1",
+								progress .. " + " .. #flowers .. " / 1000"))
 					end
 				else
 					meta:set_string("infotext", S("Does not have empty frame(s)"))
