@@ -878,7 +878,7 @@ core.register_craft({
 	recipe = {
 		{"", "default:steel_ingot", ""},
 		{"default:steel_ingot", "default:stick", "default:steel_ingot"},
-		{"default:mese_crystal", "default:steel_ingot", "default:mese_crystal"}
+		{"default:glass", "default:steel_ingot", "default:glass"}
 	}
 })
 
