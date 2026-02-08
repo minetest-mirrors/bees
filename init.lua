@@ -852,7 +852,8 @@ add_eatable("bees:bottle_honey", 3)
 
 if core.get_modpath("hunger_ng") then
 
-	hunger_ng.add_hunger_data("bees:bottle_honey", {satiates = 2})
+	hunger_ng.add_hunger_data("bees:bottle_honey",
+			{satiates = 2, returns = "vessels:glass_bottle"})
 end
 
 core.register_craftitem("bees:wax", {
