@@ -871,7 +871,7 @@ if core.get_modpath("hunger_ng") then
 	hunger_ng.add_hunger_data("bees:bottle_honey",
 			{satiates = 3, returns = "vessels:glass_bottle"})
 
-	hunger_ng.add_hunger_data("bees:bottle_comb", {satiates = 2})
+	hunger_ng.add_hunger_data("bees:honey_comb", {satiates = 2})
 end
 
 core.register_craftitem("bees:queen", {
